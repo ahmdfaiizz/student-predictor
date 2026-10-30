@@ -1,5 +1,6 @@
 from typing import Literal
 from pydantic import BaseModel, Field
+from datetime import datetime
 
 YesNo = Literal["yes", "no"]
 
@@ -23,3 +24,20 @@ class StudentInput(BaseModel):
 class PredictionOut(BaseModel):
     at_risk_probability: float
     risk_level: Literal["low", "medium", "high"]
+
+class Factor(BaseModel):
+    feature: str
+    impact: float
+    direction: str
+
+class PredictionOut(BaseModel):
+    at_risk_probability: float
+    risk_level: Literal["low", "medium", "high"]
+    top_factors: list[Factor]
+
+class HistoryItem(BaseModel):
+    id: int
+    created_at: datetime
+    probability: float
+    risk_level: str
+    model_config = {"from_attributes": True}
