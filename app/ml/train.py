@@ -8,8 +8,11 @@ from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.metrics import classification_report, roc_auc_score
+import warnings
+from sklearn.exceptions import UndefinedMetricWarning
+from app.ml.features import NUMERIC, CATEGORICAL, FEATURES
 
-USE_G1 = True   # set False to predict using only background/habit features
+warnings.filterwarnings("ignore", category=UndefinedMetricWarning)
 
 df = pd.read_csv("data/student-mat.csv", sep=";")
 
@@ -17,12 +20,11 @@ df = pd.read_csv("data/student-mat.csv", sep=";")
 df["at_risk"] = (df["G3"] < 10).astype(int)
 print("At-risk share:", round(df["at_risk"].mean(), 3))
 
-drop_cols = ["G2", "G3", "at_risk"] + ([] if USE_G1 else ["G1"])
-X = df.drop(columns=drop_cols)
+X = df[FEATURES]
 y = df["at_risk"]
 
-categorical = X.select_dtypes(include=["object", "string"]).columns.tolist()
-numeric = X.select_dtypes(exclude=["object", "string"]).columns.tolist()
+categorical = CATEGORICAL
+numeric = NUMERIC
 
 preprocess = ColumnTransformer([
     ("cat", OneHotEncoder(handle_unknown="ignore"), categorical),
