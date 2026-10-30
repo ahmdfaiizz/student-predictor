@@ -2,8 +2,11 @@ from datetime import datetime, timezone
 from sqlalchemy import create_engine, Column, Integer, Float, String, DateTime, JSON
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-engine = create_engine("sqlite:///./predictions.db",
-                       connect_args={"check_same_thread": False})
+import os
+
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./predictions.db")
+
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autoflush=False)
 Base = declarative_base()
 
