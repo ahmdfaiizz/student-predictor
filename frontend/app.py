@@ -49,9 +49,10 @@ if submitted:
                    health=health, freetime=freetime, G1=G1, higher=higher,
                    internet=internet, schoolsup=schoolsup, famsup=famsup)
     try:
-        r = requests.post(f"{API_URL}/predict", json=payload, timeout=10)
-        r.raise_for_status()
-        res = r.json()
+        with st.spinner("Contacting the model (first request may take up to a minute)..."):
+            r = requests.post(f"{API_URL}/predict", json=payload, timeout=90)
+            r.raise_for_status()
+            res = r.json()
     except requests.RequestException as e:
         st.error(f"Could not reach the API: {e}")
         st.stop()
