@@ -4,7 +4,7 @@
 
 An early-warning tool that estimates the probability a student will fail a course after the first assessment, and explains which factors drive the prediction.
 
-**[Live demo](https://student-predictor-1-tuql.onrender.com/)** · **[API docs](https://student-predictor-2x7v.onrender.com/docs)**
+**[Live demo](https://student-predictor-1-h38a.onrender.com)** · **[API docs](https://student-predictor-qf33.onrender.com/docs)**
 *(Hosted on a free tier: the first request may take up to a minute to wake the service.)*
 
 ![High-risk prediction](docs/high-risk.png)
